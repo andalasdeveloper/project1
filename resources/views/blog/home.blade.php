@@ -83,44 +83,99 @@
 
   <body>
     
-    <div class="">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
-     </div>
+ <div id="app">
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
 
-      <div class="container">
-          <h1> Welcome To My Blog</h1>    
-        
-        {{--Menu--}}
-        <nav>
-          <ul>
-              <li style="font-weight: bold;"> 10 Diary Terbaik</li>
-              <li> Top 10 like Posts</li>
-              <li> Top 10 commented Post</li>
-              <li> Top 10 Visited Post</li>
-          </ul>
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        &nbsp;
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
+                        @if (Auth::guest())
+                            <li><a href="{{ url('/login') }}">Login</a></li>
+                            <li><a href="{{ url('/register') }}">Register</a></li>
+                        @else
+                            <li class="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
         </nav>
 
-            <div>
-              <h2>Top 10 Recen Diari</h2>
-                  <div class="well well-lg">
-                      <p>  abc </p>
+        @yield('content')
+        <!-- Scripts -->
+    <script src="/js/app.js"></script>
+    </div>
+
+
+      <div class="container" with="700px">
+          <h1> Welcome To My Blog</h1>    
+             <nav class="navbar navbar-default">
+                  <div class="container">
+                      <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown">Sort Post By<span class="caret"></span></a>
+                              <ul class="dropdown-menu"> 
+                                   <li><a href="#">10 Diary Terbaik</a></li>
+                                   <li><a href="#">Top 10 like Posts</a></li>
+                                   <li><a href="#">Top 10 commented Post</a></li>
+                                   <li><a href="#">Top 10 Visited Post</a></li>
+                              </ul>              
+                            </li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a href="">manage post</a></li>
+                      </ul>
                   </div>  
-            </div>
+                </nav>
+                    <div>
+                        <h2>Top 10 Recen Diari</h2>
+                        <div class="well well-lg">
+                        <p>  abc </p>
+                    </div>  
+              </div>
+
       </div>
        
-      
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
